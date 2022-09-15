@@ -1,0 +1,236 @@
+<div class="section">
+    <div class="container">
+      <div class="row justify-content-center">
+    
+        
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="card">
+              <img class="img-adjuster" src="watch series main-5.png" />
+              <div class="card-body">
+                <h5 class="card-title">WATCH Series 7</h5>
+                <p class="card-text">Its out largest display yet.</p>
+                <a href="#" class="btn btn-primary">Buy now</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="card">
+              <img class="img-adjuster" src="last2.png" />
+              <div class="card-body">
+                <h5 class="card-title">MacBook Air</h5>
+                <p class="card-text">Supercharged by M2.</p>
+                <a href="#" class="btn btn-primary">Buy now</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="card">
+              <img class="img-adjuster" src="ipad-pro-2.jpg" />
+              <div class="card-body">
+                <h5 class="card-title">iPad Air</h5>
+                <p class="card-text">Light.Bright.Full of might.</p>
+                <a href="#" class="btn btn-primary">Buy now</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3">
+            <div class="card">
+              <img class="img-adjuster" src="random-4.jpg" />
+              <div class="card-body">
+                <h5 class="card-title">MacBook Pro 13"</h5>
+                <p class="card-text">Supercharged by M2.</p>
+                <a href="#" class="btn btn-primary">Buy now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+  </div>
+
+
+var i of arr
+
+
+
+
+
+
+
+
+
+<div class="section">
+    <div class="container">
+      <div class="row justify-content-center">
+         <% for (var j = 0; j< 1; j++) {%>
+            <% for(var i of arr) { %>
+             
+              <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                  <img class="img-adjuster" src="" />
+                  <div class="card-body">
+                    <h5 class="card-title"><%= i.name %></h5>
+                    <p class="card-text">Its out largest display yet.</p>
+                    <a href="#" class="btn btn-primary">Buy now</a>
+                  </div>
+                </div>
+              </div>
+              <% } %>
+              <% } %>
+           
+                  
+        </div>
+        </div>
+  </div>
+
+
+
+
+
+    <nav>
+        <div class="head">
+            <span>Website</span>
+            <%var user;%>
+
+            <div class="dropdown">
+              <span class="username-clr">Welcome <%=user%></span> 
+                <a class="btn dropdown-toggle" style="background-color:#1e3a68 ; color: #fff;" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                  Account
+                </a>
+              
+                <ul class="dropdown-menu " style="background-color:#3b71ca;" aria-labelledby="dropdownMenuLink">
+                  <li><a href="/logout" style="width: 102px;"><button type="submit" class="btn" style="color:#fff ;">Logout</button></a></li>
+                </ul>
+              </div>
+        </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+    <div class="dropdown">
+              <!-- <span class="username-clr">Welcome <%=user%></span>  -->
+                <i class="bi bi-person dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"></i>                          
+                <ul class="dropdown-menu " style="background-color:#3b71ca;" aria-labelledby="dropdownMenuLink">
+                  <li</li>
+                  <li><a href="/logout"><button type="submit" class="btn" style="color:#fff ;">Logout</button></a></li>
+                </ul>
+              </div>
+
+
+
+              main app\/
+
+              const express = require('express');
+const app = express();
+const session = require('express-session');
+app.set('view engine' ,'ejs');
+//listening for req
+app.listen(3007);
+
+var a;
+// djskfdjs
+
+var arr=[{
+    img:"watch series main-5.png",
+    name:"WATCH Series 7",
+    disc:"Its out largest display yet."
+},{
+    img:"last2.png",
+    name:"MacBook Air",
+    disc:"Supercharged by M2."
+},{
+    img:"ipad-pro-2.jpg",
+    name:"iPad Air",
+    disc:"Light.Bright.Full of might."
+},
+{
+    img:"random-4.jpg",
+    name:"MacBook Pro 13",
+    disc:"Supercharged by M2."
+},
+]
+
+// static file
+
+app.use(express.static('public'));
+app.use(express.urlencoded({extended:true}));
+
+app.use(session({
+    secret: "key",
+    cookie:{maxAge:10000000}
+}));
+
+app.use( function(req,res,next){
+     res.set('cache-control','no-cache , no-store,must-revalidate,max-stale=0,post-check=0,pre-checked=0');
+     next();
+   });
+  
+
+app.get('/',(req ,res ) =>{
+    console.log("req for login to home page");
+    if(req.session.loggedIn){
+        
+     res.render('home',{title:'Home',user:a, arr})
+     }else{
+        res.render('login' ,{title:'Login'})
+    }
+
+    // console.log("req made"+ req.session);
+});
+
+app.get('/home',(req ,res) =>{
+    if(req.session.loggedIn){
+        console.log('trying to access home page = access');
+     res.render('home',{title:'Home',user:a,arr})
+     }else{
+        console.log('trying to access home page = access declined');
+        res.render('login' ,{title:'Login'})
+    }
+})
+
+app.post('/',(req ,res) =>{
+
+    console.log('validating');
+
+    if(req.body.email==""||req.body.pass==""){
+
+        console.log('input box empty');
+        res.render('login',{pass:'Input box cannot be empty',title:'Login'})
+
+    }else if (req.body.email=="shafi@gmail.com") {
+
+        if(req.body.pass=="1234"){
+            console.log('validation success');
+            req.session.loggedIn=true;  
+            a=req.body.email;
+            res.render('home',{title:'Home',user:a,arr})
+
+        }else{
+            console.log('password incorrect')
+            res.render('login',{pass:'Please check your password',title:'Login'})
+        };
+    }else{
+        console.log('email incorrect')
+        res.render('login',{email:'Please check your email',title:'Login'})
+    };
+
+})
+
+app.get('/logout',(req ,res) =>{
+    console.log('session deleted','loggedout');
+    req.session.destroy();
+
+    res.render('login',{title:'Login'})
+})
+
+        // 404 page
+
+app.use((req ,res) =>{
+    res.status(404).render('404',{title:'404 Notfound'});
+})
